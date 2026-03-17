@@ -1,0 +1,102 @@
+﻿[
+  {
+    "question": "Wie deklariert man eine Variable in modernem JavaScript?",
+    "answers": [
+      "varname = 10",
+      "let value = 10",
+      "int value = 10",
+      "declare value = 10"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "question": "Welcher Datentyp ist KEIN primitiver Typ in JavaScript?",
+    "answers": [
+      "string",
+      "number",
+      "object",
+      "boolean"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "question": "Welche Methode wandelt JSON-Text in ein JavaScript-Objekt um?",
+    "answers": [
+      "JSON.stringify()",
+      "JSON.parse()",
+      "JSON.decode()",
+      "parseJSONText()"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "question": "Wie fuegt man einem Button einen Click-Handler hinzu?",
+    "answers": [
+      "button.on('click', fn)",
+      "button.addEventListener('click', fn)",
+      "button.listen('click', fn)",
+      "button.click = fn()"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "question": "Welche Array-Methode erstellt ein neues Array durch Transformation?",
+    "answers": [
+      "forEach()",
+      "map()",
+      "find()",
+      "push()"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "question": "Was liefert `===` im Vergleich zu `==`?",
+    "answers": [
+      "Es vergleicht nur den Wert",
+      "Es vergleicht Wert und Typ strikt",
+      "Es ist identisch zu ==",
+      "Es vergleicht nur den Typ"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "question": "Welches Keyword markiert eine Funktion als asynchron?",
+    "answers": [
+      "await",
+      "defer",
+      "async",
+      "promise"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "question": "Welche Methode waehlt das erste Element mit der ID app?",
+    "answers": [
+      "document.querySelector('#app')",
+      "document.getElementByClass('app')",
+      "document.select('#app')",
+      "document.query('app')"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "question": "Was gibt `typeof null` in JavaScript zurueck?",
+    "answers": [
+      "null",
+      "undefined",
+      "object",
+      "boolean"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "question": "Welche Methode fuegt am Ende eines Arrays ein Element hinzu?",
+    "answers": [
+      "append()",
+      "push()",
+      "addLast()",
+      "insert()"
+    ],
+    "correctIndex": 1
+  }
+]

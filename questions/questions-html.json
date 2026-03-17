@@ -1,0 +1,102 @@
+﻿[
+  {
+    "question": "Wofuer steht HTML?",
+    "answers": [
+      "HyperText Markup Language",
+      "HighText Machine Language",
+      "Hyperlink and Text Markup Language",
+      "Home Tool Markup Language"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "question": "Welches Element ist das Wurzelelement eines HTML-Dokuments?",
+    "answers": [
+      "<head>",
+      "<body>",
+      "<html>",
+      "<main>"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "question": "Welches Element enthaelt Metadaten wie den Seitentitel?",
+    "answers": [
+      "<meta>",
+      "<header>",
+      "<head>",
+      "<section>"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "question": "Mit welchem Element wird die groesste Ueberschrift definiert?",
+    "answers": [
+      "<heading>",
+      "<h6>",
+      "<h1>",
+      "<title>"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "question": "Welches Element erstellt einen Hyperlink?",
+    "answers": [
+      "<link>",
+      "<a>",
+      "<href>",
+      "<url>"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "question": "Welches Attribut wird bei <img> fuer die Bildquelle verwendet?",
+    "answers": [
+      "src",
+      "href",
+      "alt",
+      "title"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "question": "Welches Element stellt eine ungeordnete Liste dar?",
+    "answers": [
+      "<ol>",
+      "<li>",
+      "<ul>",
+      "<list>"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "question": "Welches Element wird fuer einen Absatz verwendet?",
+    "answers": [
+      "<text>",
+      "<p>",
+      "<span>",
+      "<article>"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "question": "Welches Attribut verbessert Barrierefreiheit bei Bildern?",
+    "answers": [
+      "class",
+      "style",
+      "alt",
+      "id"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "question": "Welches Element gruppiert den Hauptinhalt einer Seite semantisch?",
+    "answers": [
+      "<div>",
+      "<main>",
+      "<content>",
+      "<center>"
+    ],
+    "correctIndex": 1
+  }
+]

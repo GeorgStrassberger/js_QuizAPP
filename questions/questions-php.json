@@ -1,0 +1,222 @@
+﻿[
+  {
+    "question": "Wofuer steht PHP?",
+    "answers": [
+      "Personal Home Page",
+      "PHP: Hypertext Preprocessor",
+      "Private Hyperlink Processor",
+      "Program Hosting Protocol"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "question": "Welche Dateiendung haben PHP-Dateien typischerweise?",
+    "answers": [
+      ".ph",
+      ".php",
+      ".phtml5",
+      ".server"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "question": "Wie beginnt eine PHP-Code-Sektion in HTML?",
+    "answers": [
+      "<php>",
+      "<?php",
+      "<script php>",
+      "{{php}}"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "question": "Welches Zeichen steht in PHP vor Variablennamen?",
+    "answers": [
+      "#",
+      "@",
+      "$",
+      "%"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "question": "Welche Funktion gibt Text in PHP aus?",
+    "answers": [
+      "printout()",
+      "echo",
+      "console.log()",
+      "writeLine()"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "question": "Wie endet eine Anweisung in PHP meist?",
+    "answers": [
+      "Mit Doppelpunkt",
+      "Mit Komma",
+      "Mit Semikolon",
+      "Mit Punkt"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "question": "Welche Superglobale enthaelt GET-Parameter?",
+    "answers": [
+      "$_POST",
+      "$_SESSION",
+      "$_GET",
+      "$_SERVER"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "question": "Welche Superglobale enthaelt POST-Daten?",
+    "answers": [
+      "$_GET",
+      "$_POST",
+      "$_COOKIE",
+      "$_ENV"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "question": "Welche Funktion zaehlt Elemente in einem Array?",
+    "answers": [
+      "size()",
+      "length()",
+      "count()",
+      "array_size()"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "question": "Welche Funktion fuegt ein Element ans Ende eines Arrays an?",
+    "answers": [
+      "array_push()",
+      "append()",
+      "push_back()",
+      "array_add_last()"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "question": "Wie wird in PHP ein einzeiliger Kommentar geschrieben?",
+    "answers": [
+      "// Kommentar",
+      "<!-- Kommentar -->",
+      "** Kommentar",
+      "%% Kommentar"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "question": "Welche Funktion bindet eine Datei ein und wirft bei Fehler einen Fatal Error?",
+    "answers": [
+      "include",
+      "require",
+      "import",
+      "load"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "question": "Wie prueft man in PHP strikt auf Gleichheit?",
+    "answers": [
+      "=",
+      "==",
+      "===",
+      "=>"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "question": "Welche Funktion wird oft zum sicheren Hashen von Passwoertern genutzt?",
+    "answers": [
+      "md5()",
+      "sha1()",
+      "password_hash()",
+      "encrypt_password()"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "question": "Mit welcher Funktion wird ein Passwort-Hash geprueft?",
+    "answers": [
+      "password_verify()",
+      "hash_check()",
+      "verify_hash()",
+      "password_match()"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "question": "Welche Superglobale wird fuer Session-Daten verwendet?",
+    "answers": [
+      "$_SESSION",
+      "$_COOKIE",
+      "$_REQUEST",
+      "$_FILES"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "question": "Welche Funktion startet eine Session?",
+    "answers": [
+      "start_session()",
+      "session_start()",
+      "init_session()",
+      "new_session()"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "question": "Welche Erweiterung wird in modernem PHP oft fuer MySQL genutzt?",
+    "answers": [
+      "mysql",
+      "mysqli",
+      "mssql",
+      "sqlsrv-old"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "question": "Welche PDO-Methode bereitet ein SQL-Statement fuer Prepared Statements vor?",
+    "answers": [
+      "query()",
+      "exec()",
+      "prepare()",
+      "build()"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "question": "Welcher HTTP-Statuscode steht fuer OK?",
+    "answers": [
+      "200",
+      "201",
+      "301",
+      "404"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "question": "Welche Funktion wandelt einen Wert in JSON um?",
+    "answers": [
+      "json_decode()",
+      "to_json()",
+      "json_encode()",
+      "encode_json_string()"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "question": "Welche Funktion parst JSON-Text in ein PHP-Objekt oder Array?",
+    "answers": [
+      "json_parse()",
+      "json_decode()",
+      "parse_json()",
+      "from_json()"
+    ],
+    "correctIndex": 1
+  }
+]

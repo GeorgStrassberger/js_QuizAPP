@@ -1,69 +1,41 @@
+﻿:root {
+  --quiz-bg-start: #eff4ff;
+  --quiz-bg-end: #f6f9ff;
+}
+
 body {
-    background-image: url(img/background2.jpg);
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: unset;
+  min-height: 100vh;
+  background: linear-gradient(160deg, var(--quiz-bg-start), var(--quiz-bg-end));
 }
 
-.img-container {
-    width: 100%;
-    display: flex;
-    justify-content: center;
+.quiz-shell {
+  border: 0;
+  border-radius: 1rem;
+  overflow: hidden;
 }
 
-.card-container {
-    margin: 8px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
+#screen-image {
+  width: 100%;
+  height: clamp(160px, 24vw, 220px);
 }
 
-.my-card-footer {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
+.answer-button {
+  white-space: normal;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
-.my-card-footer-end {
-    width: 100%;
-    display: flex;
-    justify-content: end;
+.answer-button:hover:enabled {
+  transform: translateY(-1px);
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.08);
 }
 
-.answer-card:hover {
-    cursor: pointer;
-    background-color: rgba(0, 0, 0, 0.05);
+.result-image {
+  width: clamp(72px, 20vw, 110px);
+  height: auto;
 }
 
-.right-answer {
-    background-color: rgba(0, 225, 0, 0.5) !important;
-}
-
-.wrong-answer {
-    background-color: rgba(225, 0, 0, 0.5) !important;
-}
-
-.tc {
-    text-align: center;
-}
-
-.win-border {
-    border: gold 5px solid !important;
-}
-
-.card-body {
-    border: 1px solid rgba(0, 0, 0, .125);
-    border-radius: .25rem;
-}
-
-.no-border {
-    border: none !important;
-}
-
-.progress {
-    height: 2rem !important;
-    border-radius: 0 !important;
-    font-weight: bold !important;
-    font-size: 1.5rem !important;
+@media (max-width: 420px) {
+  #result-screen .d-flex {
+    flex-direction: column;
+  }
 }

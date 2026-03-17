@@ -1,123 +1,188 @@
-<!DOCTYPE html>
+﻿<!doctype html>
 <html lang="de">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Meine CSS -Datei -->
-    <link rel="stylesheet" href="style.css">
-    <!-- Meine JS -Datei -->
-    <script src="script.js"></script>
-    <!-- BOOTSTRAP -->
-    <!-- JavaScript Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-    <!-- CSS only -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <title>QuizAPP</title>
-
-</head>
-
-<!-- initialisieren oder initialize -->
-
-<body onload="init()">
-
-    <!-- As a heading NAVbar -->
-    <nav class="navbar navbar-light bg-light">
-        <div class="container-fluid">
-            <span class="navbar-brand mb-0 h1">QuizAPP</span>
-        </div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz App</title>
+    <link rel="icon" href="favicon.ico" sizes="any" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script defer src="script.js"></script>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand bg-white border-bottom shadow-sm">
+      <div class="container">
+        <span class="navbar-brand fw-semibold mb-0">Quiz App</span>
+        <button
+          id="sound-toggle-button"
+          class="btn btn-sm btn-outline-secondary ms-auto"
+          type="button"
+          aria-pressed="false"
+          aria-label="Sound aktivieren"
+          title="Sound aus"
+        >
+          <i id="sound-icon" class="bi bi-volume-mute-fill" aria-hidden="true"></i>
+        </button>
+      </div>
     </nav>
-    <div class="card-container">
-        <!--Start Layout-->
-        <div id="start-screen" class="card no-border" style="width: 25rem;">
-            <div class="img-container">
-                <img src="img/background3.jpg" class="card-img-top" style="width: 100%;" alt="StartImg">
-            </div>
-            <div class="card-body">
-                <!--Headline Text-->
-                <h2 id="" class="card-title tc">HML / CSS Quiz</h2>
-                <!--Normel Text-->
-                <div class="card mb-2">
-                    <div class="card-body tc">
-                        <h5>Herzlich Willkommen</h5>
-                        <span>Hier kannst du <b id="maxQuestionsNr">XXX</b> Fragen zu HTML & CSS beantwortet.</span>
-                    </div>
-                </div>
-                <!--Seite & Button-->
-                <div class="my-card-footer-end">
-                    <button onclick="start()" class="btn btn-primary" type="button ">Quiz Starten</button>
-                </div>
-            </div>
-        </div>
-        <!-- Fragen Layout-->
-        <div id="game-screen" class="card no-border" style="width: 25rem; display: none;">
-            <img src="img/learning.jpg " class="card-img-top " alt="QuizBild">
-            <!--PROGRESS BAR-->
-            <div class="progress">
-                <div id="progress-bar" class="progress-bar" role="progressbar" style="width: 0%;">25%</div>
-            </div>
-            <div class="card-body">
-                <!--Frage:-->
-                <h5 id="question" class="card-title">Frage:</h5>
-                <!--Antwort 1-->
-                <div class="card mb-2 answer-card" onclick="answer('answer-1')">
-                    <div id="answer-1" class="card-body">
-                        Antwort 1
-                    </div>
-                </div>
-                <!--Antwort 2-->
-                <div class="card mb-2 answer-card" onclick="answer('answer-2')">
-                    <div id="answer-2" class="card-body">
-                        Antwort 2
-                    </div>
-                </div>
-                <!--Antwort 3-->
-                <div class="card mb-2 answer-card" onclick="answer('answer-3')">
-                    <div id="answer-3" class="card-body">
-                        Antwort 3
-                    </div>
-                </div>
-                <!--Antwort 4-->
-                <div class="card mb-2 answer-card" onclick="answer('answer-4')">
-                    <div id="answer-4" class="card-body">
-                        Antwort 4
-                    </div>
-                </div>
-                <!--Seite & Button-->
-                <div class="my-card-footer">
-                    <span><b id="currentQuestionNr">x</b> von <b id="maxQuestionsNr2">x</b></span>
-                    <button id="next-btn" class="btn btn-primary" type="button" disabled onclick="nextQuestion()">Nächste Frage</button>
-                </div>
-            </div>
-        </div>
-        <!-- Ende Layout-->
-        <div id="end-screen" class="card  win-border" style="width: 25rem; display: none;">
-            <div class="img-container">
-                <img src="img/trophy.png" class="card-img-top" style="width: 70%;" alt="trophy">
-            </div>
-            <div class="card-body">
-                <!--Headline Text-->
-                <h2 id="" class="card-title tc">Quiz Ende</h2>
-                <!--Normel Text-->
-                <div class="card mb-2">
-                    <div class="card-body tc">
-                        <h5>Herzlichen Glückwusch!</h5>
-                        <span>Du Hast <b id="rightanswers">Y</b> von <b id="maxQuestionsNr3">YX</b> Fragen richtig beantwortet.</span>
-                        <span><b id="right-percent">asd</b></span>
-                    </div>
-                </div>
-                <!--Seite & Button-->
-                <div class="my-card-footer">
-                    <button onclick="restart()" class="btn btn-primary" type="button ">Nochmal Versuchen</button>
-                    <button onclick="closeWindow()" class="btn btn-primary" type="button">Beenden</button>
-                </div>
-            </div>
-        </div>
 
+    <main class="container py-4 py-md-5">
+      <div class="row justify-content-center">
+        <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5">
+          <div class="card shadow quiz-shell">
+            <img
+              id="screen-image"
+              class="card-img-top object-fit-cover"
+              src="img/learning.jpg"
+              alt="Quiz Header Bild"
+            />
+            <div class="card-body p-4">
+              <div
+                id="status-alert"
+                class="alert d-none mb-3"
+                role="alert"
+              ></div>
+
+              <section id="start-screen">
+                <h1 class="h3 mb-3">HTML / CSS Quiz</h1>
+                <p class="text-secondary mb-3">
+                  Starte das Quiz oder lade deine eigene Fragen-Datei als JSON.
+                </p>
+                <div class="border rounded-3 p-3 bg-body-tertiary mb-3">
+                  <p id="start-info-text" class="mb-2 small text-secondary"></p>
+                  <label for="question-file-input" class="form-label mb-2"
+                    >Eigene Fragen laden (JSON)</label
+                  >
+                  <input
+                    id="question-file-input"
+                    class="form-control form-control-sm mb-2"
+                    type="file"
+                    accept=".json,application/json"
+                  />
+                  <button
+                    id="load-file-button"
+                    class="btn btn-outline-primary btn-sm"
+                    type="button"
+                  >
+                    Datei laden
+                  </button>
+                </div>
+                <button
+                  id="start-button"
+                  class="btn btn-primary w-100"
+                  type="button"
+                >
+                  Quiz starten
+                </button>
+              </section>
+
+              <section id="quiz-screen" class="d-none">
+                <div
+                  class="d-flex justify-content-between align-items-center mb-2"
+                >
+                  <span class="small text-secondary"
+                    >Frage <strong id="current-question-number">1</strong> von
+                    <strong id="max-question-number">1</strong></span
+                  >
+                  <span id="score-pill" class="badge text-bg-light"
+                    >0 Punkte</span
+                  >
+                </div>
+
+                <div
+                  class="progress mb-3"
+                  role="progressbar"
+                  aria-label="Quiz Fortschritt"
+                >
+                  <div
+                    id="progress-bar"
+                    class="progress-bar progress-bar-striped progress-bar-animated"
+                    style="width: 0%"
+                  >
+                    0%
+                  </div>
+                </div>
+
+                <h2 id="question-text" class="h5 mb-3">Frage</h2>
+                <div id="answers-container" class="d-grid gap-2 mb-3"></div>
+
+                <button
+                  id="next-button"
+                  class="btn btn-primary w-100"
+                  type="button"
+                  disabled
+                >
+                  Naechste Frage
+                </button>
+              </section>
+
+              <section id="result-screen" class="d-none text-center">
+                <img
+                  src="img/learning.jpg"
+                  alt="Quiz Bild"
+                  class="result-image mb-3"
+                />
+                <h2 class="h4 mb-2">Quiz beendet</h2>
+                <p class="mb-1">
+                  Du hast <strong id="result-correct-count">0</strong> von
+                  <strong id="result-total-count">0</strong> Fragen richtig
+                  beantwortet.
+                </p>
+                <p id="result-percent" class="fw-semibold mb-3">0%</p>
+                <div class="d-flex gap-2">
+                  <button
+                    id="restart-button"
+                    class="btn btn-primary flex-fill"
+                    type="button"
+                  >
+                    Nochmal versuchen
+                  </button>
+                  <button
+                    id="back-to-start-button"
+                    class="btn btn-outline-secondary flex-fill"
+                    type="button"
+                  >
+                    Zur Startseite
+                  </button>
+                </div>
+              </section>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <div
+      id="json-loaded-modal"
+      class="modal fade"
+      tabindex="-1"
+      aria-labelledby="json-loaded-modal-title"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content">
+          <div class="modal-body text-center py-4">
+            <i class="bi bi-check-circle-fill text-success fs-2 d-block mb-2"></i>
+            <p id="json-loaded-modal-title" class="mb-0 fw-semibold">JSON geladen</p>
+            <p id="json-loaded-modal-message" class="mb-0 small text-secondary"></p>
+          </div>
+        </div>
+      </div>
     </div>
 
-
-</body>
-
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+  </body>
 </html>
