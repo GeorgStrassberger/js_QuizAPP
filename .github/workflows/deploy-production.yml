@@ -1,0 +1,175 @@
+﻿name: Deploy Production
+
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: "Branch oder Commit SHA fuer Deployment"
+        required: false
+        default: "main"
+      dry_run:
+        description: "Nur pruefen (kein Upload, kein Smoke-Test)"
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+jobs:
+  deploy_staging_candidate:
+    name: Deploy candidate to staging + smoke test
+    runs-on: ubuntu-latest
+    environment: staging
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.ref || 'main' }}
+
+      - name: Install lftp
+        run: sudo apt-get update && sudo apt-get install --yes lftp
+
+      - name: Prepare deploy package
+        run: |
+          set -euo pipefail
+          mkdir -p deploy
+          cp index.html style.css script.js favicon.ico deploy/
+          for dir in img audio questions; do
+            if [ -d "$dir" ]; then
+              cp -r "$dir" deploy/
+            fi
+          done
+          ls -la deploy
+
+      - name: Dry-run status (staging candidate)
+        run: |
+          if [ "${{ github.event.inputs.dry_run == 'true' }}" = "true" ]; then
+            echo "DRY-RUN aktiv: Kein Upload und kein Smoke-Test."
+          else
+            echo "Normaler Deploy-Lauf."
+          fi
+
+      - name: Validate SFTP target staging (pre-check)
+        env:
+          SFTP_HOST: ${{ secrets.STRATO_SFTP_HOST }}
+          SFTP_PORT: ${{ secrets.STRATO_SFTP_PORT }}
+          SFTP_USER: ${{ secrets.STRATO_SFTP_USER }}
+          SFTP_PASSWORD: ${{ secrets.STRATO_SFTP_PASSWORD }}
+          SFTP_PATH: ${{ vars.STAGING_SFTP_PATH }}
+        run: |
+          set -euo pipefail
+          lftp -u "$SFTP_USER","$SFTP_PASSWORD" "sftp://$SFTP_HOST:$SFTP_PORT" <<EOF
+          set sftp:auto-confirm yes
+          set ssl:verify-certificate no
+          cls "$SFTP_PATH"
+          bye
+          EOF
+
+      - name: Upload files via SFTP (staging)
+        if: ${{ github.event.inputs.dry_run != 'true' }}
+        env:
+          SFTP_HOST: ${{ secrets.STRATO_SFTP_HOST }}
+          SFTP_PORT: ${{ secrets.STRATO_SFTP_PORT }}
+          SFTP_USER: ${{ secrets.STRATO_SFTP_USER }}
+          SFTP_PASSWORD: ${{ secrets.STRATO_SFTP_PASSWORD }}
+          SFTP_PATH: ${{ vars.STAGING_SFTP_PATH }}
+        run: |
+          set -euo pipefail
+          lftp -u "$SFTP_USER","$SFTP_PASSWORD" "sftp://$SFTP_HOST:$SFTP_PORT" <<EOF
+          set sftp:auto-confirm yes
+          set ssl:verify-certificate no
+          mirror --reverse --delete --verbose deploy/ "$SFTP_PATH"
+          bye
+          EOF
+
+      - name: Smoke test staging (curl)
+        if: ${{ github.event.inputs.dry_run != 'true' }}
+        env:
+          SMOKE_TEST_URL: ${{ vars.STAGING_SMOKE_TEST_URL }}
+          SMOKE_TEST_GREP: ${{ vars.SMOKE_TEST_GREP }}
+        run: |
+          set -euo pipefail
+          curl -fsS "$SMOKE_TEST_URL" | grep -q "$SMOKE_TEST_GREP"
+
+  deploy_production:
+    name: Deploy to production + smoke test
+    needs: deploy_staging_candidate
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.ref || 'main' }}
+
+      - name: Install lftp
+        run: sudo apt-get update && sudo apt-get install --yes lftp
+
+      - name: Prepare deploy package
+        run: |
+          set -euo pipefail
+          mkdir -p deploy
+          cp index.html style.css script.js favicon.ico deploy/
+          for dir in img audio questions; do
+            if [ -d "$dir" ]; then
+              cp -r "$dir" deploy/
+            fi
+          done
+          ls -la deploy
+
+      - name: Dry-run status (production)
+        run: |
+          if [ "${{ github.event.inputs.dry_run == 'true' }}" = "true" ]; then
+            echo "DRY-RUN aktiv: Kein Upload und kein Smoke-Test."
+          else
+            echo "Normaler Deploy-Lauf."
+          fi
+
+      - name: Validate SFTP target production (pre-check)
+        env:
+          SFTP_HOST: ${{ secrets.STRATO_SFTP_HOST }}
+          SFTP_PORT: ${{ secrets.STRATO_SFTP_PORT }}
+          SFTP_USER: ${{ secrets.STRATO_SFTP_USER }}
+          SFTP_PASSWORD: ${{ secrets.STRATO_SFTP_PASSWORD }}
+          SFTP_PATH: ${{ vars.PRODUCTION_SFTP_PATH }}
+        run: |
+          set -euo pipefail
+          lftp -u "$SFTP_USER","$SFTP_PASSWORD" "sftp://$SFTP_HOST:$SFTP_PORT" <<EOF
+          set sftp:auto-confirm yes
+          set ssl:verify-certificate no
+          cls "$SFTP_PATH"
+          bye
+          EOF
+
+      - name: Upload files via SFTP (production)
+        if: ${{ github.event.inputs.dry_run != 'true' }}
+        env:
+          SFTP_HOST: ${{ secrets.STRATO_SFTP_HOST }}
+          SFTP_PORT: ${{ secrets.STRATO_SFTP_PORT }}
+          SFTP_USER: ${{ secrets.STRATO_SFTP_USER }}
+          SFTP_PASSWORD: ${{ secrets.STRATO_SFTP_PASSWORD }}
+          SFTP_PATH: ${{ vars.PRODUCTION_SFTP_PATH }}
+        run: |
+          set -euo pipefail
+          lftp -u "$SFTP_USER","$SFTP_PASSWORD" "sftp://$SFTP_HOST:$SFTP_PORT" <<EOF
+          set sftp:auto-confirm yes
+          set ssl:verify-certificate no
+          mirror --reverse --delete --verbose deploy/ "$SFTP_PATH"
+          bye
+          EOF
+
+      - name: Smoke test production (curl)
+        if: ${{ github.event.inputs.dry_run != 'true' }}
+        env:
+          SMOKE_TEST_URL: ${{ vars.PRODUCTION_SMOKE_TEST_URL }}
+          SMOKE_TEST_GREP: ${{ vars.SMOKE_TEST_GREP }}
+        run: |
+          set -euo pipefail
+          curl -fsS "$SMOKE_TEST_URL" | grep -q "$SMOKE_TEST_GREP"

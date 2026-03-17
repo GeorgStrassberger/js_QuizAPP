@@ -1,0 +1,109 @@
+﻿name: Deploy Review
+
+on:
+  pull_request:
+    branches:
+      - main
+    types:
+      - opened
+      - synchronize
+      - reopened
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Nur pruefen (kein Upload, kein Smoke-Test)"
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-review-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  review_dry_run:
+    name: Review dry-run check
+    if: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Install lftp
+        run: sudo apt-get update && sudo apt-get install --yes lftp
+
+      - name: Dry-run status
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            echo "PR-Run: erst Dry-Run-Check, danach bei Erfolg Deploy."
+          elif [ "${{ github.event.inputs.dry_run == 'true' }}" = "true" ]; then
+            echo "Manueller DRY-RUN: Nur Check, kein Deploy."
+          else
+            echo "Manueller Normal-Run: Check + Deploy."
+          fi
+
+      - name: Validate SFTP target
+        env:
+          SFTP_HOST: ${{ secrets.STRATO_SFTP_HOST }}
+          SFTP_PORT: ${{ secrets.STRATO_SFTP_PORT }}
+          SFTP_USER: ${{ secrets.STRATO_SFTP_USER }}
+          SFTP_PASSWORD: ${{ secrets.STRATO_SFTP_PASSWORD }}
+          SFTP_PATH: ${{ vars.REVIEW_SFTP_PATH }}
+        run: |
+          set -euo pipefail
+          lftp -u "$SFTP_USER","$SFTP_PASSWORD" "sftp://$SFTP_HOST:$SFTP_PORT" <<EOF
+          set sftp:auto-confirm yes
+          set ssl:verify-certificate no
+          cls "$SFTP_PATH"
+          bye
+          EOF
+
+  deploy_review:
+    name: Upload to review + smoke test
+    needs: review_dry_run
+    if: ${{ (github.event_name == 'pull_request' || github.event.inputs.dry_run != 'true') && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false) }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install lftp
+        run: sudo apt-get update && sudo apt-get install --yes lftp
+
+      - name: Prepare deploy package
+        run: |
+          set -euo pipefail
+          mkdir -p deploy
+          cp index.html style.css script.js favicon.ico deploy/
+          for dir in img audio questions; do
+            if [ -d "$dir" ]; then
+              cp -r "$dir" deploy/
+            fi
+          done
+          ls -la deploy
+
+      - name: Upload files via SFTP (review)
+        env:
+          SFTP_HOST: ${{ secrets.STRATO_SFTP_HOST }}
+          SFTP_PORT: ${{ secrets.STRATO_SFTP_PORT }}
+          SFTP_USER: ${{ secrets.STRATO_SFTP_USER }}
+          SFTP_PASSWORD: ${{ secrets.STRATO_SFTP_PASSWORD }}
+          SFTP_PATH: ${{ vars.REVIEW_SFTP_PATH }}
+        run: |
+          set -euo pipefail
+          lftp -u "$SFTP_USER","$SFTP_PASSWORD" "sftp://$SFTP_HOST:$SFTP_PORT" <<EOF
+          set sftp:auto-confirm yes
+          set ssl:verify-certificate no
+          mirror --reverse --delete --verbose deploy/ "$SFTP_PATH"
+          bye
+          EOF
+
+      - name: Smoke test review (curl)
+        env:
+          SMOKE_TEST_URL: ${{ vars.REVIEW_SMOKE_TEST_URL }}
+          SMOKE_TEST_GREP: ${{ vars.SMOKE_TEST_GREP }}
+        run: |
+          set -euo pipefail
+          curl -fsS "$SMOKE_TEST_URL" | grep -q "$SMOKE_TEST_GREP"
