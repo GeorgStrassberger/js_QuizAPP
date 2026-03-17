@@ -77,7 +77,11 @@ jobs:
           set -euo pipefail
           mkdir -p deploy
           cp index.html style.css script.js favicon.ico deploy/
-          cp -r img audio questions deploy/
+          for dir in img audio questions; do
+            if [ -d "$dir" ]; then
+              cp -r "$dir" deploy/
+            fi
+          done
           ls -la deploy
 
       - name: Upload files via SFTP (review)
