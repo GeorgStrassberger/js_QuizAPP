@@ -1,0 +1,122 @@
+﻿[
+  {
+    "question": "Wofuer steht HTML?",
+    "answers": [
+      "HyperText Markup Language",
+      "Home Tool Markup Language",
+      "HighText Machine Language",
+      "Hyperlink Text Management Language"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "question": "Welches Element ist das Wurzelelement eines HTML-Dokuments?",
+    "answers": [
+      "<body>",
+      "<head>",
+      "<html>",
+      "<main>"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "question": "Welches Attribut wird bei einem Link fuer die Zieladresse genutzt?",
+    "answers": [
+      "src",
+      "href",
+      "target",
+      "rel"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "question": "Welches Element erstellt eine ungeordnete Liste?",
+    "answers": [
+      "<ol>",
+      "<li>",
+      "<ul>",
+      "<list>"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "question": "Welches Element beschreibt den Hauptinhalt semantisch?",
+    "answers": [
+      "<content>",
+      "<div>",
+      "<main>",
+      "<section-main>"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "question": "Welches Attribut ist wichtig fuer barrierefreie Bilder?",
+    "answers": [
+      "class",
+      "alt",
+      "style",
+      "id"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "question": "Wofuer steht CSS?",
+    "answers": [
+      "Creative Style System",
+      "Cascading Style Sheets",
+      "Computer Styled Syntax",
+      "Colorful Site Sheets"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "question": "Welcher Selektor waehlt die Klasse card?",
+    "answers": [
+      "#card",
+      ".card",
+      "card",
+      "*card"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "question": "Welches Property aendert die Textfarbe?",
+    "answers": [
+      "font-color",
+      "text-color",
+      "color",
+      "foreground"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "question": "Welches Property setzt Innenabstand?",
+    "answers": [
+      "margin",
+      "padding",
+      "gap",
+      "spacing"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "question": "Wie aktiviert man Flexbox auf einem Container?",
+    "answers": [
+      "display: flex",
+      "position: flex",
+      "layout: flex",
+      "flex: true"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "question": "Welches Property rundet Ecken?",
+    "answers": [
+      "corner-radius",
+      "radius",
+      "border-radius",
+      "edge-round"
+    ],
+    "correctIndex": 2
+  }
+]

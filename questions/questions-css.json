@@ -1,0 +1,62 @@
+﻿[
+  {
+    "question": "Wofuer steht CSS?",
+    "answers": [
+      "Creative Style Sheets",
+      "Cascading Style Sheets",
+      "Computer Styled Syntax",
+      "Colorful Site System"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "question": "Welcher Selektor waehlt alle Elemente mit der Klasse card aus?",
+    "answers": ["#card", ".card", "card", "*card"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Welches CSS-Property aendert die Textfarbe?",
+    "answers": ["font-color", "text-color", "color", "foreground"],
+    "correctIndex": 2
+  },
+  {
+    "question": "Welches Property setzt den Innenabstand eines Elements?",
+    "answers": ["margin", "padding", "border-spacing", "gap"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Welches Property macht ein Flex-Layout aktiv?",
+    "answers": ["display: grid", "position: flex", "display: flex", "flex: on"],
+    "correctIndex": 2
+  },
+  {
+    "question": "Welches Property rundet Ecken ab?",
+    "answers": ["corner-radius", "border-radius", "radius", "edge-round"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Welche Einheit ist relativ zur Schriftgroesse des Elternelements?",
+    "answers": ["px", "vw", "em", "%"],
+    "correctIndex": 2
+  },
+  {
+    "question": "Welches Property steuert die Stapelreihenfolge ueberlappender Elemente?",
+    "answers": ["layer", "z-index", "stack-order", "order"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Welcher Pseudoklassen-Selektor reagiert auf Mauszeiger ueber einem Element?",
+    "answers": [":focus", ":active", ":hover", ":visited"],
+    "correctIndex": 2
+  },
+  {
+    "question": "Wie schreibt man einen Kommentar in CSS?",
+    "answers": [
+      "// kommentar",
+      "<!-- kommentar -->",
+      "/* kommentar */",
+      "# kommentar"
+    ],
+    "correctIndex": 2
+  }
+]
